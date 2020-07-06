@@ -1,0 +1,44 @@
+{
+    "versao": "1.0.0.0",
+    "https": false,
+    "404": "homepage",
+    "paginas": {
+        "sessao": {
+            "caminho": ["/sessao"],
+            "layout": false,
+            "modelo": false,
+            "scripts": [],
+            "styles": [],
+            "controle": "sessao",
+            "type": "application/json",
+            "persistente": false,
+            "variaveis": {}
+        },
+        "homepage": {
+            "caminho": ["/","/home"],
+            "layout": "home/helloworld",
+            "modelo": "template",
+            "scripts": [],
+            "styles": [],
+            "controle": false,
+            "type": "text/html",
+            "persistente": false,
+            "variaveis": {
+                "titulo": "Home Page"
+            }
+        },
+        "paginateste": {
+            "caminho": ["/home/teste"],
+            "layout": "home/teste-de-pagina",
+            "modelo": "template",
+            "scripts": ["exemplo"],
+            "styles": [],
+            "controle": "helloworld",
+            "type": "text/html",
+            "persistente": false,
+            "variaveis": {
+                "titulo": "Teste de página"
+            }
+        }
+    }
+}
