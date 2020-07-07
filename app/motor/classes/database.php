@@ -2,35 +2,15 @@
     /* Refazer sistema de DB */
 
     class database {
-        private $secao = false;
-        public  $dados = array();
-        private $nome  = false;
-        private $senha = false;
-        private $proteger = false;
-		private $vetor = false;
+        private $dados = array();
+        private $dir = null;
 
-        function __construct($secao=false,$senha=false,$protegido=false){
-            if($secao){
-                $this->secao = "#" . md5($secao);
-            } else {
-                $this->secao = "#" . md5("global");
-            }
-            if($senha){
-                $this->senha = sha1($senha);
-            } else {
-                $this->senha = sha1($secao);
-            }
-            $this->proteger = $protegido;
-
-            if(!is_dir($this->secao)){
-                mkdir($this->secao);
-                file_put_contents($this->secao . "/index.php","<?php header('Location: ../'); ?>");
+        public function __construct($database=-1,$senha=-1){
+            $this->dir = dirname(dirname(__DIR__)) . "/database";
+            if($database!==-1){
+                $this->iniciar($database,$senha);
             }
         }
-
-		public function vetor($def=true){
-			$this->vetor = $def;
-		}
 
         private function baseDeCodificacao($texto, $chave, $fator){
 			$chave = sha1($chave);
@@ -57,78 +37,40 @@
 			return $this->baseDeCodificacao( $texto, $chave,  1 );
 		}
 
-        public function abrir($nome,$protegido=false){
-            if($protegido){$this->proteger();}
-            $nome = "#" . md5($nome);
-            $dado = array();
-            $indice = 0;
-            $arquivo = $this->secao . "/{$nome}";
-            do {
-                $arquivofinal = $arquivo . md5($indice);
-                if(file_exists($arquivofinal)){
-                    $data = file_get_contents($arquivofinal);
-                    foreach(($this->proteger?unserialize($this->decodificar($data,$this->senha)):unserialize($data)) as $chave=>$datafinal){
-                        $dado[$chave] = $datafinal;
-                    }
-                } else {
-                    break;
-                }
-                $indice++;
-            } while(file_exists($arquivofinal));
-            $this->nome = $nome;
-            $this->dados = $this->vetor ? ($dado):$dado;
+        public function iniciar($database="global",$senha=-1){
+            $this->database = $database;
+            $this->senha = $senha !== -1 ? md5($senha) : -1;
+            $this->atualizar();
         }
 
-        public function apagar($nome){
-            $nome = "#" . md5($nome);
-            $indice = 0;
-            $arquivo = $this->secao . "/{$nome}";
-            do {
-                $arquivofinal = $arquivo . md5($indice);
-                if(file_exists($arquivofinal)){
-                    unlink($arquivofinal);
-                } else {
-                    break;
+        public function atualizar(){
+            if(file_exists(($dbdir = "$this->dir/{$this->database}.db"))){
+                $dados = file_get_contents($dbdir);
+                if($this->senha!==-1){
+                    $dados = $this->decodificar($dados,$this->senha);
                 }
-                $indice++;
-            } while(file_exists($arquivofinal));
-        }
-
-        public function carregar($nome, $chave = -1){
-            $nome = "#" . md5($nome);
-            $dado = array();
-            $indice = $chave==-1?0:floor($chave*0.001);
-            $arquivo = $this->secao . "/{$nome}";
-            $arquivofinal = $arquivo . md5($indice);
-            if(file_exists($arquivofinal)){
-                $data = file_get_contents($arquivofinal);
-                foreach(($this->proteger?unserialize($this->decodificar($data,$this->senha)):unserialize($data)) as $ch=>$datafinal){
-                    $dado[$ch] = $datafinal;
-                }
+                $this->dados = unserialize($dados);
+            } else {
+                $this->dados = array();
             }
+        }
 
-            if($chave < 0): return count($dado)?$dado:false;
-            elseif(isset($dado[$chave])): return $dado[$chave];
-            else: return false; endif;
+        public function escrever($chave, $valor){
+            $this->dados[$chave] = $valor;
+        }
+
+        public function ler($chave="*",$obj=false,$reload=false){
+            if($reload){
+                $this->atualizar();
+            }
+            return $obj ? ($chave=="*"?(object)$this->dados:(is_array($this->dados[$chave])?(object)$this->dados[$chave]:$this->dados[$chave])):($chave=="*"?$this->dados:$this->dados[$chave]);
         }
 
         public function gravar(){
-            $dados = array_chunk($this->dados, 1000, true);
-            foreach($dados as $pos=>$dado){
-                $pos = md5($pos);
-                $data = $this->proteger?$this->codificar(serialize($dado),$this->senha):serialize($dado);
-                $arquivo = $this->secao . "/{$this->nome}{$pos}";
-                $arquivo = fopen($arquivo, "w");
-                fwrite($arquivo,$data);
-                fclose($arquivo);
-            }
-        }
-
-        public function proteger(){
-            $this->proteger = true;
-        }
-
-        public function desproteger(){
-            $this->proteger = false;
+            $dados = serialize($this->dados);
+            echo "$this->dir/{$this->database}.db";
+            $saida = file_put_contents("$this->dir/{$this->database}.db",$this->senha==-1?$dados:$this->codificar($dados,$this->senha));
+            $this->atualizar();
+            return $saida;
         }
     }

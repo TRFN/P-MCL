@@ -12,17 +12,19 @@
             "controle": "sessao",
             "type": "application/json",
             "persistente": false,
+            "incluir": {},
             "variaveis": {}
         },
         "homepage": {
             "caminho": ["/","/home"],
             "layout": "home/helloworld",
-            "modelo": "template",
+            "modelo": "estrutura/template",
             "scripts": [],
             "styles": [],
             "controle": false,
             "type": "text/html",
             "persistente": false,
+            "incluir": {},
             "variaveis": {
                 "titulo": "Home Page"
             }
@@ -30,12 +32,15 @@
         "paginateste": {
             "caminho": ["/home/teste"],
             "layout": "home/teste-de-pagina",
-            "modelo": "template",
+            "modelo": false,
             "scripts": ["exemplo"],
             "styles": [],
             "controle": "helloworld",
             "type": "text/html",
             "persistente": false,
+            "incluir": {
+                "menu": "elementos/menu"
+            },
             "variaveis": {
                 "titulo": "Teste de página"
             }

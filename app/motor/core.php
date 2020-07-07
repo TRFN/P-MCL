@@ -20,8 +20,8 @@
 
         private function appLoad(){
             $this->app = json_decode(file_get_contents(__DIR__ . "/app.json"));
-            $this->app->appDir = __DIR__ . "/..";
-            $this->app->publicDir = __DIR__ . "/../../public_html";
+            $this->app->appDir = dirname(__DIR__);
+            $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
             $this->app->page = $_SERVER['REQUEST_URI'];
             $this->app->vars = array();
         }
@@ -53,7 +53,11 @@
             foreach($pagina->variaveis as $chave => $variavel){
                 $this->regVar($chave, $variavel);
             }
-            
+
+            foreach($pagina->incluir as $chave => $variavel){
+                $this->regVar($chave, file_get_contents("{$this->app->appDir}/modelos/{$variavel}.html"));
+            }
+
             if(empty($this->app->vars["layout"]) && $modelo = "%layout%"){
                 $this->app->modelo = "";
                 unset($this->app->vars["layout"]);

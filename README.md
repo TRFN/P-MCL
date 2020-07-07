@@ -31,3 +31,15 @@ Sistema simplificado de desenvolvimento de aplicações Web
 ./app/scripts -> Pasta que contem scripts interativos ao contexto (.js)
 
 ./app/styles -> Pasta que contem estilos interativos ao contexto (.css)
+
+# Classe -> database
+
+Carregamento: $variavel = new database([nome do banco(opcional,default:não carregar)],[senha(opcional)]);
+Inicialização: $variavel->iniciar([nome do banco(opcional,default:global)],[senha(opcional)]);
+Leitura: $variavel->ler(["\*"|{nome-da-chave ou numero de indice}],[objeto(true:false)],[reload(true:false)]);
+Escrita: $variavel->escrever([chave],[valor]);
+Gravar: $variavel->gravar();
+
+# Modo de funcionamento
+
+O projeto deve ser configurado através do app.json.
