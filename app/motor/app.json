@@ -4,13 +4,25 @@
     "404": "homepage",
     "paginas": {
         "sessao": {
-            "caminho": ["/sessao"],
+            "caminho": ["/sessao.json"],
             "layout": false,
             "modelo": false,
             "scripts": [],
             "styles": [],
             "controle": "sessao",
             "type": "application/json",
+            "persistente": false,
+            "incluir": {},
+            "variaveis": {}
+        },
+        "superscript": {
+            "caminho": ["/script.js"],
+            "layout": false,
+            "modelo": false,
+            "scripts": [],
+            "styles": [],
+            "controle": "superscript",
+            "type": "application/javascript",
             "persistente": false,
             "incluir": {},
             "variaveis": {}
