@@ -8,7 +8,6 @@
                 "plh": "CPF"
             }
         },
-
         "senha": {
             "layout": "formularios/inputtext",
             "vars": {
@@ -17,7 +16,6 @@
                 "plh": "Senha"
             }
         },
-
         "login": {
             "layout": "formularios/inputtext",
             "vars": {
@@ -27,6 +25,5 @@
             }
         }
     },
-
     "montagem": ["cpf","senha","login"]
 }
