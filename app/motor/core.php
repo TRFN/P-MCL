@@ -55,7 +55,28 @@
             }
 
             foreach($pagina->incluir as $chave => $variavel){
-                $this->regVar($chave, file_get_contents("{$this->app->appDir}/modelos/{$variavel}.html"));
+                if(file_exists($html = "{$this->app->appDir}/modelos/{$variavel}.html")){
+                    $this->regVar($chave, file_get_contents($html));
+                } elseif(file_exists($json = "{$this->app->appDir}/modelos/{$variavel}.json")){
+                    $json = file_get_contents($json);
+                    $json = json_decode($json,true);
+                    $finalcontent = "";
+                    foreach($json["montagem"] as $busca){
+                        $elemento = isset($json["contem"][$busca])?$json["contem"][$busca]:-1;
+
+                        if($elemento!==-1){
+                            $e_layout = file_get_contents("{$this->app->appDir}/layouts/{$elemento["layout"]}.html");
+
+                            foreach($elemento["vars"] as $var=>$value){
+                                $e_layout = implode($value,explode("%{$var}%",$e_layout));
+                            }
+
+                            $finalcontent .= ($e_layout);
+                        }
+                    }
+
+                    $this->regVar($chave, $finalcontent);
+                }
             }
 
             if(empty($this->app->vars["layout"]) && $modelo = "%layout%"){

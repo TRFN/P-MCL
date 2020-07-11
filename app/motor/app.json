@@ -29,21 +29,23 @@
         },
         "homepage": {
             "caminho": ["/","/home"],
-            "layout": "home/helloworld",
+            "layout": "paginas/home/helloworld",
             "modelo": "estrutura/template",
             "scripts": [],
             "styles": [],
             "controle": false,
             "type": "text/html",
             "persistente": false,
-            "incluir": {},
+            "incluir": {
+                "form-login": "formularios/formulario-teste"
+            },
             "variaveis": {
                 "titulo": "Home Page"
             }
         },
         "paginateste": {
             "caminho": ["/home/teste"],
-            "layout": "home/teste-de-pagina",
+            "layout": "paginas/home/teste-de-pagina",
             "modelo": false,
             "scripts": ["exemplo"],
             "styles": [],
