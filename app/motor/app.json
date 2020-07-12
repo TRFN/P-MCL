@@ -12,6 +12,7 @@
             "controle": "sessao",
             "type": "application/json",
             "persistente": false,
+            "minify": false,
             "incluir": {},
             "variaveis": {}
         },
@@ -24,6 +25,7 @@
             "controle": "superscript",
             "type": "application/javascript",
             "persistente": false,
+            "minify": false,
             "incluir": {},
             "variaveis": {}
         },
@@ -36,6 +38,7 @@
             "controle": false,
             "type": "text/html",
             "persistente": false,
+            "minify": false,
             "incluir": {
                 "form-login": "formularios/formulario-teste"
             },
@@ -52,6 +55,7 @@
             "controle": "helloworld",
             "type": "text/html",
             "persistente": false,
+            "minify": false,
             "incluir": {
                 "menu": "elementos/menu"
             },

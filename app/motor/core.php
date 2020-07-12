@@ -115,7 +115,7 @@
             foreach($this->app->vars as $var=>$value){
                 $output = implode($value,explode("%{$var}%",$output));
             }
-            echo $this->minifyCode($output);
+            echo $this->app->minify ? $this->minifyCode($output):$output;
         }
 
         private function render(){
