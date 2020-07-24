@@ -20,6 +20,10 @@
 
         private function appLoad(){
             $this->app = json_decode(file_get_contents(__DIR__ . "/app.json"));
+            if($this->app->https && $_SERVER["HTTPS"] != "on"){
+                header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                exit();
+            }
             $this->app->appDir = dirname(__DIR__);
             $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
             $this->app->page = $_SERVER['REQUEST_URI'];
@@ -94,7 +98,7 @@
                 $styles = "";
 
                 foreach($pagina->styles as $style){
-                    $styles .= file_get_contents("{$this->app->appDir}/styles/{$script}.css") . "\n";
+                    $styles .= file_get_contents("{$this->app->appDir}/styles/{$style}.css") . "\n";
                 }
 
                 $this->regVar("stylecode", $styles);
