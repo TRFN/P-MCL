@@ -1,0 +1,20 @@
+{
+    "versao": "1.0.0.0",
+    "https": false,
+    "404": false,
+    "paginas": {
+        "sessao": {
+            "caminho": ["/admin/controladores/sessao.json"],
+            "layout": false,
+            "modelo": false,
+            "scripts": [],
+            "styles": [],
+            "controle": "admin/sessao",
+            "type": "application/json",
+            "persistente": false,
+            "minify": false,
+            "incluir": {},
+            "variaveis": {}
+        }
+    }
+}
