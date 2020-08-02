@@ -56,8 +56,6 @@ Sistema simplificado de desenvolvimento de aplicações Web
 * VAR: $variavel->u_pass (read and write) => Variável do usuário que será lida como senha
 
 * VAR: $variavel->erros (read only) {
-<<<<<<< HEAD
-<<<<<<< HEAD
  
     $variavel->erros->login => Contem o ultimo erro de login
 
@@ -65,16 +63,6 @@ Sistema simplificado de desenvolvimento de aplicações Web
 
     $variavel->erros->alterar_dado => Contem o ultimo erro ao alterar um dado
 
-=======
-    $variavel->erros->login => Contem o ultimo erro de login
-    $variavel->erros->criar_conta => Contem o ultimo erro ao criar uma conta
-    $variavel->erros->alterar_dado => Contem o ultimo erro ao alterar um dado
->>>>>>> b39e61f6de33a7ebe5c8877377f9a99d148f8d0e
-=======
-    $variavel->erros->login => Contem o ultimo erro de login
-    $variavel->erros->criar_conta => Contem o ultimo erro ao criar uma conta
-    $variavel->erros->alterar_dado => Contem o ultimo erro ao alterar um dado
->>>>>>> b39e61f6de33a7ebe5c8877377f9a99d148f8d0e
 }
 
 * FN: $variavel->criar_conta($dados) => Cria uma conta de usuário. Obrigatório que haja um nome de usuário e senha compatíveis com o que será lido.
