@@ -1,6 +1,4 @@
 <?php
-    /* Refazer sistema de DB */
-
     class database {
         private $dados = array();
         private $dir = null;
