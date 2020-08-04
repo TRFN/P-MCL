@@ -182,6 +182,20 @@
             $this->app->vars[(string)$var] = (string)$val;
         }
 
+        public function regVarPersistent($var, $val){
+            $this->regVar($var, $val);
+
+            $vars_backup = $this->app->vars;
+
+            $this->app->vars = array();
+
+            $this->regVar($var, $val);
+
+            foreach($vars_backup as $_var => $_val){
+                $this->regVar($_var, $_val);
+            }
+        }
+
         public function compare($arrA, $arrB, $exact=true){
             $match = 0;
             foreach($arrA as $key=>$val){
