@@ -39,10 +39,17 @@
 
         private function loadPage($index){
             $pagina = $this->app->paginas->{"$index"};
-            $exec = false;
-            if($pagina->controle){
+
+            $exec = array();
+
+            if(is_string($pagina->controle)){
                 include_once "{$this->app->appDir}/controles/{$pagina->controle}.php";
-                $exec = "ctrl_" . preg_replace("/\//","_",$pagina->controle);
+                $exec[] = "ctrl_" . preg_replace("/\//","_",$pagina->controle);
+            } elseif(is_array($pagina->controle)){
+                foreach($pagina->controle as $controle){
+                    include_once "{$this->app->appDir}/controles/{$controle}.php";
+                    $exec[] = "ctrl_" . preg_replace("/\//","_",$controle);
+                }
             }
 
             $this->regVar("layout", $pagina->layout
@@ -110,8 +117,10 @@
 
             $this->app->contentType = $pagina->type;
 
-            if($exec){
-                $exec($this);
+            if(count($exec) > 0){
+                foreach($exec as $_exec){
+                    $_exec($this);
+                }
             }
         }
 
