@@ -30,7 +30,7 @@
             $this->app->appDir = dirname(__DIR__);
             $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
             $this->app->page = $_SERVER['REQUEST_URI'];
-            $this->app->vars = isset($this->app->vars) ? $this->app->vars : array();
+            $this->app->vars = isset($this->app->vars) ? (array)$this->app->vars : array();
             $this->urlParams = explode("/", $this->app->page);
             array_shift($this->urlParams);
         }
