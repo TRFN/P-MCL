@@ -2,6 +2,10 @@
     "versao": "1.0.0.0",
     "https": false,
     "404": false,
+    "minify": false,
+    "vars": {
+
+    },
     "paginas": {
         "sessao": {
             "caminho": ["/admin/controladores/sessao.json"],
@@ -13,7 +17,6 @@
             "type": "application/json",
             "persistente": false,
             "minify": false,
-            "incluir": {},
             "variaveis": {}
         }
     }

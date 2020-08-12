@@ -1,7 +1,11 @@
 {
-    "versao": "1.0.0.0",
+    "versao": "1.1.0.0",
     "https": false,
     "404": "homepage",
+    "minify": false,
+    "vars": {
+
+    },
     "paginas": {
         "sessao": {
             "caminho": ["/sessao.json"],
@@ -13,7 +17,6 @@
             "type": "application/json",
             "persistente": false,
             "minify": false,
-            "incluir": {},
             "variaveis": {}
         },
         "superscript": {
@@ -26,7 +29,6 @@
             "type": "application/javascript",
             "persistente": false,
             "minify": false,
-            "incluir": {},
             "variaveis": {}
         },
         "homepage": {
@@ -39,11 +41,9 @@
             "type": "text/html",
             "persistente": false,
             "minify": false,
-            "incluir": {
-                "form-login": "formularios/formulario-teste"
-            },
             "variaveis": {
-                "titulo": "Home Page"
+                "titulo": "Home Page",
+                "form-login": "formularios/formulario-teste"
             }
         },
         "paginateste": {
@@ -56,11 +56,9 @@
             "type": "text/html",
             "persistente": false,
             "minify": false,
-            "incluir": {
-                "menu": "elementos/menu"
-            },
             "variaveis": {
-                "titulo": "Teste de página"
+                "titulo": "Teste de página",
+                "menu": "elementos/menu"
             }
         }
     }
