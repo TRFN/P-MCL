@@ -1,65 +1,23 @@
 {
-    "versao": "1.1.0.0",
-    "https": false,
-    "404": "homepage",
-    "minify": false,
+    "versao": "1.2.0.0",
+    "https": true,
+    "404": "default",
+    "minify": true,
     "vars": {
 
     },
     "paginas": {
-        "sessao": {
-            "caminho": ["/sessao.json"],
-            "layout": false,
+        "default": {
+            "caminho": ["/"],
+            "layout": "It's Working!",
             "modelo": false,
-            "scripts": [],
-            "styles": [],
-            "controle": "sessao",
-            "type": "application/json",
-            "persistente": false,
-            "minify": false,
-            "variaveis": {}
-        },
-        "superscript": {
-            "caminho": ["/script.js"],
-            "layout": false,
-            "modelo": false,
-            "scripts": [],
-            "styles": [],
-            "controle": "superscript",
-            "type": "application/javascript",
-            "persistente": false,
-            "minify": false,
-            "variaveis": {}
-        },
-        "homepage": {
-            "caminho": ["/","/home"],
-            "layout": "paginas/home/helloworld",
-            "modelo": "estrutura/template",
             "scripts": [],
             "styles": [],
             "controle": false,
-            "type": "text/html",
-            "persistente": false,
+            "type": "text/plain",
+            "persistente": true,
             "minify": false,
-            "variaveis": {
-                "titulo": "Home Page",
-                "form-login": "formularios/formulario-teste"
-            }
-        },
-        "paginateste": {
-            "caminho": ["/home/teste"],
-            "layout": "paginas/home/teste-de-pagina",
-            "modelo": false,
-            "scripts": ["exemplo"],
-            "styles": [],
-            "controle": "helloworld",
-            "type": "text/html",
-            "persistente": false,
-            "minify": false,
-            "variaveis": {
-                "titulo": "Teste de página",
-                "menu": "elementos/menu"
-            }
+            "variaveis": {}
         }
     }
 }
