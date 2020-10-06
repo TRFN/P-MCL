@@ -1,6 +1,9 @@
 <?php
     class motor {
 
+        /*  SUPER VARIAVEIS */
+        private $public_dir = "public_html"; // Alterar se Preciso
+
         /* Inicialização */
 
         function __construct(){
@@ -14,7 +17,7 @@
         }
 
         private function rescheck(){
-            $www = realpath(dirname(dirname(__DIR__)) . "/public_html" . $_SERVER["REQUEST_URI"]);
+            $www = realpath(dirname(dirname(__DIR__)) . "/{$this->public_dir}" . $_SERVER["REQUEST_URI"]);
 
             $ext = pathinfo($www,PATHINFO_EXTENSION);
 
@@ -79,7 +82,7 @@
             $this->jsmin = new jsmin();
             $this->app = json_decode(file_get_contents(__DIR__ . "/{$app}.json"));
             $this->app->appDir = dirname(__DIR__);
-            $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
+            $this->app->publicDir = dirname($this->app->appDir) . "/{$this->public_dir}";
             $this->app->page = $_SERVER['REQUEST_URI'];
             $this->applyDefaultVars();
             $this->urlParams = explode("/", $this->app->page);
@@ -157,7 +160,9 @@
         }
 
         private function str2res($str){
-            if(file_exists($html = "{$this->app->appDir}/modelos/{$str}.html")){
+            if(strlen($str) > 2048) {
+               return $str;
+            } elseif(file_exists($html = "{$this->app->appDir}/modelos/{$str}.html")){
                 return file_get_contents($html);
             } elseif(file_exists($html = "{$this->app->appDir}/layouts/{$str}.html")){
                 return file_get_contents($html);
