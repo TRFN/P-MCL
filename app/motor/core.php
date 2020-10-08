@@ -1,8 +1,7 @@
 <?php
     class motor {
 
-        /*  SUPER VARIAVEIS */
-        private $public_dir = "public_html"; // Alterar se Preciso
+        private $public_dir = "public_html";
 
         /* Inicialização */
 
@@ -110,6 +109,21 @@
                 }
             }
 
+            if(count($exec)){
+                $json = [];
+                foreach($exec as $e){
+                    $dir = explode("_", $e);
+                    array_shift($dir);
+                    array_pop($dir);
+                    $dir = implode("/", $dir);
+
+                    if(file_exists($fl="{$this->app->appDir}/controles/{$dir}/config.json")){
+                        $json[] = json_decode(file_get_contents(realpath($fl)),true);
+                    }
+                }
+                $this->config = $json;
+            }
+
             $this->regVarStrict("layout", $pagina->layout
                 ? $pagina->layout
                 : ""
@@ -160,7 +174,7 @@
         }
 
         private function str2res($str){
-            if(strlen($str) > 2048) {
+            if(strlen($str) > 320) {
                return $str;
             } elseif(file_exists($html = "{$this->app->appDir}/modelos/{$str}.html")){
                 return file_get_contents($html);
