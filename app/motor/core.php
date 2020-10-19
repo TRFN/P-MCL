@@ -166,6 +166,11 @@
 
             $this->app->contentType = $pagina->type;
 
+            // header("Content-Type: text/plain");
+            //
+            // print_R($this);
+            // exit;
+
             if(count($exec) > 0){
                 foreach($exec as $_exec){
                     $_exec($this);
@@ -207,6 +212,10 @@
                 }
 
                 return $finalcontent;
+            } elseif(file_exists($fl="{$this->app->appDir}/config/{$str}.json")) {
+                $str = preg_replace("/\./","_",$str);
+                $this->{"{$str}"} = json_decode(file_get_contents(realpath($fl)), true);
+                return md5(realpath($fl));
             } else {
                 return $str;
             }
