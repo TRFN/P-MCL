@@ -2,6 +2,8 @@
     class motor {
 
         private $public_dir = "public_html";
+        private $minjs = true;
+        private $mincss = true;
 
         /* Inicialização */
 
@@ -26,13 +28,13 @@
                 switch($ext){
                     case "css":
                         $code = file_get_contents($www);
-                        $code = (preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$code));
+                        $code = $this->mincss?(preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$code)):$code;
                         $mime = "text/css";
                     break;
 
                     case "js":
                         $jsmin = new jsmin();
-                        $code = $jsmin->minify(file_get_contents($www));
+                        $code = $this->minjs?$jsmin->minify(file_get_contents($www)):file_get_contents($www);
                         $mime = "application/x-javascript";
                     break;
 
