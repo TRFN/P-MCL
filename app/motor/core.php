@@ -2,7 +2,7 @@
     class motor {
 
         private $public_dir = "public_html";
-        private $minjs = true;
+        private $minjs = false;
         private $mincss = true;
 
         /* Inicialização */
@@ -307,6 +307,18 @@
 
         public function regVarStrict($var, $val){
             $this->app->vars[$var] =  array("var" => (string)$var, "val" => $this->str2res((string)$val));
+        }
+
+        public function issetVarStrict($var){
+            return isset($this->app->vars[$var]);
+        }
+
+        public function issetVar($var){
+            $existe = false;
+            foreach($this->app->vars as $val){
+                $existe = $existe || ($val["var"] == $var);
+            }
+            return $existe;
         }
 
         public function regVarPersistent($var, $val){
