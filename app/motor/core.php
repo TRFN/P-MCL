@@ -151,7 +151,7 @@
                     $scripts .= file_get_contents("{$this->app->appDir}/scripts/{$script}.js") . "\n";
                 }
 
-                $scripts = $this->jsmin->minify($scripts);
+                $scripts = preg_replace("!/\*.*?\*/!s","",$this->jsmin->minify($scripts, array('flaggedComments' => false)));
 
                 $this->regVarStrict("scriptcode", $scripts);
 
@@ -161,7 +161,7 @@
                     $styles .= file_get_contents("{$this->app->appDir}/styles/{$style}.css") . "\n";
                 }
 
-                $this->regVarStrict("stylecode", preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$styles));
+                $this->regVarStrict("stylecode", preg_replace("!/\*.*?\*/!s","",preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$styles)));
 
                 $this->app->modelo = $modelo;
             }
