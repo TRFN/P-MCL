@@ -7,7 +7,6 @@
         private $db = null;
 
         function __construct($id,$debug=false){
-            session_start();
 
             $this->conexao = isset($_SESSION["hash"]) && !empty($_SESSION["hash"]) ? $_SESSION["hash"]:null;
 

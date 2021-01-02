@@ -10,6 +10,7 @@
         function __construct(){
             ini_set('memory_limit', '-1');
             date_default_timezone_set('America/Sao_Paulo');
+            session_start();
 
             $this->classLoader();
             $this->rescheck();
@@ -297,6 +298,23 @@
                 $this->app->globVars[$chave] = $this->str2res($valor);
             }
             $this->app->vars = array();
+            $this->translate();
+        }
+
+        private function translate(){
+            if(!isset($_SESSION["lang"])){
+                $lang = isset($this->app->defaultLang)?$this->app->defaultLang:"default";
+                $_SESSION["lang"] = $lang;
+            } else {
+                $lang = $_SESSION["lang"];
+            }
+            if(file_exists($fl=$this->app->appDir . "/idiomas/{$lang}.json")){
+                $lang = file_get_contents($fl);
+                $lang = json_decode($lang, true);
+                foreach($lang as $key=>$val){
+                    $this->regVarPersistent("lang:{$key}", $val);
+                }
+            }
         }
 
         /* Funções publicas */
@@ -323,6 +341,11 @@
 
         public function regVarPersistent($var, $val){
             $this->app->globVars[(string)$var] = $this->str2res((string)$val);
+        }
+
+        public function setLang($name){
+            $_SESSION["lang"] = $name;
+            header("Location: /");
         }
 
         public function regVarSuper($var, $val){

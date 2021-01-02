@@ -1,5 +1,5 @@
 {
-    "versao": "1.2.0.0",
+    "versao": "1.3.0.0",
     "https": true,
     "404": "default",
     "minify": true,
@@ -9,11 +9,11 @@
     "paginas": {
         "default": {
             "caminho": ["/"],
-            "layout": "It's Working!",
+            "layout": "Bem vindo a framework!",
             "modelo": false,
             "scripts": [],
             "styles": [],
-            "controle": false,
+            "controle": [],
             "type": "text/plain",
             "persistente": true,
             "minify": false,
